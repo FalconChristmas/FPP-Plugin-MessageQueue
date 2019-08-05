@@ -1,0 +1,19 @@
+{
+    "repoName": "FPP-Plugin-MessageQueue",
+    "name": "Message Queue Aggregator for Plugins",
+    "linkName": "MessageQueue",
+    "author": "Ben Shaver (bshaver) and Pat Delaney (patdelaney)",
+    "description": "Message Queue Aggregator for Plugins",
+    "homeURL": "https://github.com/FalconChristmas/FPP-Plugin-MessageQueue",
+    "srcURL": "https://github.com/FalconChristmas/FPP-Plugin-MessageQueue.git",
+    "bugURL": "https://github.com/FalconChristmas/FPP-Plugin-MessageQueue/issues",
+    "allowUpdates": 1,
+    "versions": [
+        {
+            "minFPPVersion": "2.0",
+            "maxFPPVersion": "0",
+            "branch": "master",
+            "sha": ""
+        }
+    ]
+}

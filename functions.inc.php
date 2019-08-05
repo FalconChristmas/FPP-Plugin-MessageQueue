@@ -6,7 +6,7 @@ function createTables() {
 
 	$createQuery = "CREATE TABLE IF NOT EXISTS messages (messageID INTEGER PRIMARY KEY AUTOINCREMENT, timestamp int(16) NOT NULL, message varchar(255), pluginName varchar(64), pluginData varchar(64));";
 
-	logEntry("CREATING Messages in db: ".$Plugin_DBName.": ".$createQuery);
+	logEntry("CREATING Tables in db: ".$Plugin_DBName.": ".$createQuery);
 
 	$db->exec($createQuery) or die('Create Table Failed');
 
@@ -28,7 +28,7 @@ function insertMessage($DBName, $table, $message, $pluginName, $pluginData) {
 }
 //add message to queue
 
-function addNewMessage($messageText,$pluginName,$pluginData="",$messageFile) {
+function addNewMessage($messageText,$pluginName,$pluginData="",$messageFile="") {
 
 	global $messageQueueFile, $TwilioVersion, $settings, $WeatherVersion;
 	
