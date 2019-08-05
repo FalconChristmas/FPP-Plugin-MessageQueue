@@ -28,7 +28,7 @@ function updatePluginFromGitHub($gitURL, $branch="master", $pluginName) {
 	
 	
 }
-function logEntry($data,$logLevel=1,$sourceFile, $sourceLine) {
+function logEntry($data, $logLevel = 1, $sourceFile = "", $sourceLine = "") {
 
 	global $logFile,$myPid, $LOG_LEVEL;
 
