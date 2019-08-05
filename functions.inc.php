@@ -80,7 +80,7 @@ function addNewMessage($messageText,$pluginName,$pluginData="",$messageFile="") 
 
 function getNewPluginMessages($subscriptions="") {
 	
-	global $DEBUG, $messageQueuePluginPath,$messageQueueFile, $TwilioVersion, $MatrixMessageVersion;
+	global $DEBUG, $messageQueuePluginPath, $messageQueueFile, $TwilioVersion, $MatrixMessageVersion, $pluginName;
 	
 	if($DEBUG)
 		logEntry("MESSAGE QUEUE: Inside function ".__METHOD__,0,__FILE__,__LINE__);
@@ -94,26 +94,20 @@ function getNewPluginMessages($subscriptions="") {
 	switch ($pluginVersion) {
 		
 		case "2.0":
-			
-			
-			
-			if($subscriptions == "") {
+			if ($subscriptions == "") {
 				$pluginSubscriptions[] = $pluginName;
 			} else {
-			
 				$pluginSubscriptions = explode(",",$subscriptions);
 			}
-			
 			
 			//build list of messages from the pluginSubscriptions array
 			$newMessages=array();
 			$pluginLastRead= 0;
-			foreach($pluginSubscriptions as $pluginName) {
+			foreach ($pluginSubscriptions as $pluginName) {
 				//require("/opt/fpp/www/common.php");
-				$DB_NAME = $settings['configDirectory']."/FPP.".$pluginName.".db";
-				$DB_NAME = "/home/fpp/media/config"."/FPP.".$pluginName.".db";
+				$DB_NAME = $messageQueueFile;
 				
-				logEntry("MESSAGE QUEUE: getting NEW ".$pluginName." messages from ".$pluginName." ".$DB_NAME." DB");
+				logEntry("MESSAGE QUEUE: getting NEW " . $pluginName . " messages from " . $messageQueueFile);
 				
 				$pluginLastRead  = urldecode(ReadSettingFromFile("LAST_READ",$pluginName));
 				logEntry("MESSAGE QUEUE: plugin ".$pluginName." last read: ".$pluginLastRead);

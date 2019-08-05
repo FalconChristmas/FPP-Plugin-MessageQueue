@@ -1,33 +1,20 @@
 <?php
-//$DEBUG=true;
-//3.0 - Dec 27 2016 - Convert to SQLLITE3, write version to config file
-//2.5 - Dec 3 2016 - Fix update button form
-//2.4 - Dec 2 2016 - touch the message queue file
-//2.3 - Dec 2 2016 - ability to delete message queue file
-//2.2 - Dec 2 - Blacklist functions!
-
-//2.1 - Dec 2 - added dyanimic profnaity file for message queue.
-
 
 include_once "/opt/fpp/www/common.php";
 include_once "functions.inc.php";
 include_once 'commonFunctions.inc.php';
-//$pluginName = "MessageQueue";
 $pluginName = basename(dirname(__FILE__));  //pjd 7-14-2019   added per dkulp
-$pluginVersion ="2.7";
-//$DEBUG=true;
+$pluginVersion ="3.0";
+$DEBUG=false;
 $myPid = getmypid();
 
-$gitURL = "https://github.com/LightsOnHudson/FPP-Plugin-MessageQueue.git";
+$gitURL = "https://github.com/FalconChristmas/FPP-Plugin-MessageQueue.git";
 
 
-$pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
+$pluginUpdateFile = $settings['pluginDirectory'] . "/" . $pluginName . "/" . "pluginUpdate.inc";
 
 //write version number!
 WriteSettingToFile("VERSION",urlencode($pluginVersion),$pluginName);
-
-
-
 
 
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
@@ -62,8 +49,8 @@ $ENABLED = urldecode($pluginSettings['ENABLED']);
 $MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
 
 //set a default message queue file
-if(trim($MESSAGE_FILE) == "") {
-	$MESSAGE_FILE = "/home/fpp/media/config/FPP.".$pluginName.".db";
+if (trim($MESSAGE_FILE) == "") {
+	$MESSAGE_FILE = "/home/fpp/media/config/FPP." . $pluginName . ".db";
 	WriteSettingToFile("MESSAGE_FILE",urlencode($_POST["MESSAGE_FILE"]),$pluginName);
 }
 
@@ -131,7 +118,7 @@ if(isset($_POST['delMessageQueue'])) {
 <p>
 
 
-<p>To report a bug, please file it against the MessageQueue plugin project on Git: https://github.com/LightsOnHudson/FPP-Plugin-MessageQueue
+<p>To report a bug, please file it against the MessageQueue plugin project on Git: https://github.com/FalconChristmas/FPP-Plugin-MessageQueue
 <form method="post" action="http://<? echo $_SERVER['SERVER_ADDR']?>/plugin.php?plugin=<?echo $pluginName;?>&page=plugin_setup.php">
 
 
