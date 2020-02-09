@@ -40,6 +40,8 @@ function addNewMessage($messageText,$pluginName,$pluginData="",$messageFile="") 
 		$pluginVersion = "2.0";
 	} elseif($pluginName == "FPP-Plugin-EventDate") {		// pjd 7/15/2019 added as temp workaround
 		$pluginVersion = "2.0";
+	} elseif($pluginName == "Twitter") {     //NBP 2/2/2020
+        	$pluginVersion = "2.0";          //NBP 2/2/2020
 	}	
 
 	logEntry("Message file passed: ".$messageFile);
