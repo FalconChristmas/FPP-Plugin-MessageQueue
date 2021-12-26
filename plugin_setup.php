@@ -49,9 +49,15 @@ $ENABLED = urldecode($pluginSettings['ENABLED']);
 $MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
 
 //set a default message queue file
+if (isset($pluginSettings['MESSAGE_FILE'])){
+	$MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
+}else{ //Set default Message database	
+	$MESSAGE_FILE = "/home/fpp/media/config/FPP." . $pluginName . ".db";
+	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
+}
 if (trim($MESSAGE_FILE) == "") {
 	$MESSAGE_FILE = "/home/fpp/media/config/FPP." . $pluginName . ".db";
-	WriteSettingToFile("MESSAGE_FILE",urlencode($_POST["MESSAGE_FILE"]),$pluginName);
+	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
 }
 
 $db = new SQLite3($MESSAGE_FILE) or die('Unable to open database');
