@@ -1,6 +1,6 @@
 <?php
 
-include_once "/opt/fpp/www/common.php";
+include_once "common.php";
 include_once "functions.inc.php";
 include_once 'commonFunctions.inc.php';
 $pluginName = basename(dirname(__FILE__));  //pjd 7-14-2019   added per dkulp
@@ -44,19 +44,22 @@ $pluginConfigFile = $settings['configDirectory'] . "/plugin." .$pluginName;
 if (file_exists($pluginConfigFile))
 	$pluginSettings = parse_ini_file($pluginConfigFile);
 
+if (!isset($pluginSettings['ENABLED'])) {
+    $pluginSettings['ENABLED'] = "0";
+}
+
 $ENABLED = urldecode($pluginSettings['ENABLED']);
 
-$MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
 
 //set a default message queue file
 if (isset($pluginSettings['MESSAGE_FILE'])){
 	$MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
-}else{ //Set default Message database	
-	$MESSAGE_FILE = "/home/fpp/media/config/FPP." . $pluginName . ".db";
+} else { //Set default Message database	
+	$MESSAGE_FILE = $settings['configDirectory'] . "/FPP." . $pluginName . ".db";
 	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
 }
 if (trim($MESSAGE_FILE) == "") {
-	$MESSAGE_FILE = "/home/fpp/media/config/FPP." . $pluginName . ".db";
+	$MESSAGE_FILE = $settings['configDirectory'] . "/FPP." . $pluginName . ".db";
 	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
 }
 
@@ -83,7 +86,7 @@ if(isset($_POST['delMessageQueue'])) {
 	
 //	exec($TOUCH_CMD);
 	//create new DB
-	$createNewDB_CMD = "/usr/bin/sqlite3 ".$MESSAGE_FILE;
+	$createNewDB_CMD = "/usr/bin/sqlite3 " . $MESSAGE_FILE;
 	
 	exec($createNewDB_CMD);
 	
