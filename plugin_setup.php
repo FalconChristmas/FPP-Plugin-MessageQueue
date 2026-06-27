@@ -8,27 +8,11 @@ $pluginVersion ="3.0";
 $DEBUG=false;
 $myPid = getmypid();
 
-$gitURL = "https://github.com/FalconChristmas/FPP-Plugin-MessageQueue.git";
-
-
-$pluginUpdateFile = $settings['pluginDirectory'] . "/" . $pluginName . "/" . "pluginUpdate.inc";
-
 //write version number!
 WriteSettingToFile("VERSION",urlencode($pluginVersion),$pluginName);
 
 
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
-
-
-logEntry("plugin update file: ".$pluginUpdateFile);
-
-
-if(isset($_POST['updatePlugin']))
-{
-	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
-
-	echo $updateResult."<br/> \n";
-}
 
 
 if(isset($_POST['submit']))
@@ -104,6 +88,7 @@ if(isset($_POST['delMessageQueue'])) {
 <div id="MessageQueue" class="settings">
 <fieldset>
 <legend><?php echo $pluginName." Version: ".$pluginVersion;?> Support Instructions</legend>
+<div id="updatesAvailable" style="display:inline-block; vertical-align: top;"></div>
 
 <p>Known Issues:
 <ul>
@@ -162,12 +147,6 @@ echo "<input type=\"submit\" name=\"delMessageQueue\" value=\"Delete Message Que
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
 <?
- if(file_exists($pluginUpdateFile))
- {
- 	//echo "updating plugin included";
-	include $pluginUpdateFile;
-}
-
 echo "</form> \n";
 ?>
 </form>
