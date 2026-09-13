@@ -35,16 +35,20 @@ if (!isset($pluginSettings['ENABLED'])) {
 $ENABLED = urldecode($pluginSettings['ENABLED']);
 
 
-//set a default message queue file
+//set a default message queue file (binaries must live under plugindata/, not config/)
+$defaultMessageFile = $settings['mediaDirectory'] . "/plugindata/" . $pluginName . "/FPP." . $pluginName . ".db";
 if (isset($pluginSettings['MESSAGE_FILE'])){
 	$MESSAGE_FILE = urldecode($pluginSettings['MESSAGE_FILE']);
 } else { //Set default Message database	
-	$MESSAGE_FILE = $settings['configDirectory'] . "/FPP." . $pluginName . ".db";
+	$MESSAGE_FILE = $defaultMessageFile;
 	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
 }
 if (trim($MESSAGE_FILE) == "") {
-	$MESSAGE_FILE = $settings['configDirectory'] . "/FPP." . $pluginName . ".db";
+	$MESSAGE_FILE = $defaultMessageFile;
 	WriteSettingToFile("MESSAGE_FILE",urlencode($MESSAGE_FILE),$pluginName);
+}
+if (!is_dir(dirname($MESSAGE_FILE))) {
+	mkdir(dirname($MESSAGE_FILE), 0775, true);
 }
 
 $db = new SQLite3($MESSAGE_FILE) or die('Unable to open database');
@@ -132,13 +136,13 @@ PrintSettingCheckbox("Message Queue", "ENABLED", $restart = 0, $reboot = 0, "ON"
 
 echo "<p/> \n";
 
-echo "Message File Path and Name (/home/fpp/media/config/FPP.FPP-Plugin-MessageQueue.db) : \n";
+echo "Message File Path and Name (/home/fpp/media/plugindata/FPP-Plugin-MessageQueue/FPP.FPP-Plugin-MessageQueue.db) : \n";
   
 echo "<input type=\"text\" name=\"MESSAGE_FILE\" size=\"64\" value=\"".htmlspecialchars($MESSAGE_FILE, ENT_QUOTES)."\"> \n";
 echo "<p/> \n";
 echo "<hr/> \n";
 echo "Message file database \n";
-echo "<form name=\"messageManagement\" method=\"post\" action=\"".$_SERVER['PHP_SELF']."?plugin=".$pluginName."&page=plugin_setup.php\"> \n";
+echo "<form name=\"messageManagement\" method=\"post\" action=\"".htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES)."?plugin=".$pluginName."&page=plugin_setup.php\"> \n";
 echo "<input type=\"submit\" name=\"delMessageQueue\" value=\"Delete Message Queue DB\"> \n";
 
 
