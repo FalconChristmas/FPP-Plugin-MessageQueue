@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 pushd $(dirname $(which $0))
 . /opt/fpp/scripts/common
 setSetting restartFlag 1
