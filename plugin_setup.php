@@ -12,7 +12,7 @@ $myPid = getmypid();
 WriteSettingToFile("VERSION",urlencode($pluginVersion),$pluginName);
 
 
-$logFile = $settings['logDirectory']."/".$pluginName.".log";
+$logFile = $settings['logDirectory']."/plugin-".$pluginName.".log";
 
 
 if(isset($_POST['submit']))
@@ -134,7 +134,7 @@ echo "<p/> \n";
 
 echo "Message File Path and Name (/home/fpp/media/config/FPP.FPP-Plugin-MessageQueue.db) : \n";
   
-echo "<input type=\"text\" name=\"MESSAGE_FILE\" size=\"64\" value=\"".$MESSAGE_FILE."\"> \n";
+echo "<input type=\"text\" name=\"MESSAGE_FILE\" size=\"64\" value=\"".htmlspecialchars($MESSAGE_FILE, ENT_QUOTES)."\"> \n";
 echo "<p/> \n";
 echo "<hr/> \n";
 echo "Message file database \n";
