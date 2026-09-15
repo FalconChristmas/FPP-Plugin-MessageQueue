@@ -28,5 +28,30 @@
             "branch": "master",
             "sha": ""
         }
-    ]
+    ],
+    "privacy": {
+        "summary": "Nothing leaves this device. Keeps every message other plugins pass through it, including visitor text messages, in a database and in the sending plugin's log until you delete them.",
+        "sends": [],
+        "collects": [
+            {
+                "what": "messages other plugins pass through it, including visitor text messages from SMS Control",
+                "about": "visitors",
+                "keptDays": null,
+                "canDelete": true,
+                "where": "plugindata/FPP-Plugin-MessageQueue/"
+            },
+            {
+                "what": "a copy of each message text, logged by the plugin that sends or reads it",
+                "about": "visitors",
+                "keptDays": null,
+                "canDelete": false,
+                "where": "the sending or reading plugin's log under logs/"
+            }
+        ],
+        "sensors": [],
+        "remoteAccess": "none",
+        "systemChanges": [],
+        "closedCode": false,
+        "other": "The message database and the plugin logs stay on the device after uninstall; delete them by hand or use FPP's file manager for the logs. The database location can be changed on the plugin page; the path shown is the default. It also writes a LAST_READ marker into the settings file of each plugin that reads from it."
+    }
 }
